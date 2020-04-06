@@ -14,7 +14,10 @@ Don't look any further, Mindbloom is the app for you!
 *  Add liked songs to your Spotify Liked songs playlist 
  
 ## Technologies 
-* Android (Java)
-* FireBase 
+* Flutter
+* Spotify SDK
+
+## Chart created to determine genre
+
 
 ## Preview of The App 
