@@ -12,4 +12,5 @@ class Ids {
   static final String storageUnitKey = "feather_unit";
   static final String storageRefreshTimeKey = "refresh_time";
   static final String storageLastRefreshTimeKey = "last_refresh_time";
+  static final String spotifyPage = "spotify_page";
 }

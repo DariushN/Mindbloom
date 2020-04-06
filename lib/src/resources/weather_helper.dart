@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:feather/src/blocs/application_bloc.dart';
+import 'package:feather/src/models/internal/weather_enum.dart';
 import 'package:feather/src/models/remote/system.dart';
 import 'package:feather/src/resources/config/assets.dart';
 
@@ -8,20 +9,28 @@ class WeatherHelper {
     String asset = Assets.iconCloud;
     if (code >= 200 && code <= 299) {
       asset = Assets.iconThunder;
+      CurrentWeatherHandler.currentWeather=WeatherEnum.Thunder;
     } else if (code >= 300 && code <= 399) {
       asset = Assets.iconCloudLittleRain;
+      CurrentWeatherHandler.currentWeather=WeatherEnum.Rain;
     } else if (code >= 500 && code <= 599) {
       asset = Assets.iconRain;
+      CurrentWeatherHandler.currentWeather=WeatherEnum.Rain;
     } else if (code >= 600 && code <= 699) {
       asset = Assets.iconSnow;
+      CurrentWeatherHandler.currentWeather=WeatherEnum.Snow;
     } else if (code >= 700 && code <= 799) {
       asset = Assets.iconDust;
+      CurrentWeatherHandler.currentWeather=WeatherEnum.Cloud;
     } else if (code == 800) {
       asset = Assets.iconSun;
+      CurrentWeatherHandler.currentWeather=WeatherEnum.Sun;
     } else if (code == 801) {
       asset = Assets.iconCloudSun;
+      CurrentWeatherHandler.currentWeather=WeatherEnum.Sun;
     } else if (code >= 802) {
       asset = Assets.iconCloud;
+      CurrentWeatherHandler.currentWeather=WeatherEnum.Cloud;
     }
     return asset;
   }

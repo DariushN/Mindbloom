@@ -5,6 +5,7 @@ import 'package:feather/src/resources/config/application_colors.dart';
 import 'package:feather/src/resources/config/dimensions.dart';
 import 'package:feather/src/resources/config/ids.dart';
 import 'package:feather/src/ui/screen/mood_slider_screen.dart';
+import 'package:feather/src/ui/screen/spotify_screen.dart';
 import 'package:feather/src/ui/screen/weather_main_page.dart';
 import 'package:feather/src/ui/widget/widget_helper.dart';
 import 'package:feather/src/utils/date_time_helper.dart';
@@ -69,7 +70,10 @@ class WeatherMainWidgetState extends State<WeatherMainWidget> {
         page = WeatherMainPage(weatherResponse: response);
       } else if (key == Ids.moodSliderPage) {
         // TODO: Add mood slider
-        page = MoodSliderScreen(changeMood);
+        page = SpotifyScreen();
+      }else if (key == Ids.spotifyPage) {
+        // TODO: Add mood slider
+        page = SpotifyScreen();
       }
       _pageMap[key] = page;
       return page;

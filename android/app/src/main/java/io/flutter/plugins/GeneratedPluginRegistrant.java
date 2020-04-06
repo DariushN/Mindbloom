@@ -6,6 +6,7 @@ import com.baseflow.googleapiavailability.GoogleApiAvailabilityPlugin;
 import io.flutter.plugins.packageinfo.PackageInfoPlugin;
 import com.baseflow.permissionhandler.PermissionHandlerPlugin;
 import io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin;
+import de.minimalme.spotify_sdk.SpotifySdkPlugin;
 import io.flutter.plugins.urllauncher.UrlLauncherPlugin;
 
 /**
@@ -21,6 +22,7 @@ public final class GeneratedPluginRegistrant {
     PackageInfoPlugin.registerWith(registry.registrarFor("io.flutter.plugins.packageinfo.PackageInfoPlugin"));
     PermissionHandlerPlugin.registerWith(registry.registrarFor("com.baseflow.permissionhandler.PermissionHandlerPlugin"));
     SharedPreferencesPlugin.registerWith(registry.registrarFor("io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin"));
+    SpotifySdkPlugin.registerWith(registry.registrarFor("de.minimalme.spotify_sdk.SpotifySdkPlugin"));
     UrlLauncherPlugin.registerWith(registry.registrarFor("io.flutter.plugins.urllauncher.UrlLauncherPlugin"));
   }
 
