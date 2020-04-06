@@ -14,7 +14,15 @@ Don't look any further, Mindbloom is the app for you!
 *  Add liked songs to your Spotify Liked songs playlist 
  
 ## Technologies 
-* Android (Java)
-* FireBase 
+* Flutter
+* Spotify SDK
+
+## Chart created to determine genre
+![Chart](../master/ChartMindbloom.png)
+
+Chart has been created using the following articles;
+* https://www.mysticsons.com/article/feature-heres-how-different-music-genres-affect-your-mood#.Xotdc1NKjL8
+* https://sites.tufts.edu/eeseniordesignhandbook/2015/music-mood-classification/
+* https://sites.psu.edu/siowfa15/2015/10/21/does-the-type-of-music-you-listen-to-affect-your-mood/
 
 ## Preview of The App 
