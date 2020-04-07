@@ -18,7 +18,7 @@ class SizedIconButton extends StatelessWidget {
     return SizedBox(
       width: width,
       child: FlatButton(
-        child: Icon(icon),
+        child: Icon(icon, color: Colors.white,),
         onPressed: () => onPressed(),
       ),
     );

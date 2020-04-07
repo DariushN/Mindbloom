@@ -7,5 +7,5 @@ enum WeatherEnum{
 }
 
 class CurrentWeatherHandler{
-  static WeatherEnum currentWeather;
+  static WeatherEnum currentWeather=WeatherEnum.Cloud;
 }

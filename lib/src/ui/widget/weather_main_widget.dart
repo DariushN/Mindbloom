@@ -70,10 +70,10 @@ class WeatherMainWidgetState extends State<WeatherMainWidget> {
         page = WeatherMainPage(weatherResponse: response);
       } else if (key == Ids.moodSliderPage) {
         // TODO: Add mood slider
-        page = SpotifyScreen();
-      }else if (key == Ids.spotifyPage) {
+        page = MoodSliderScreen(changeMood);
+      } else if (key == Ids.spotifyPage) {
         // TODO: Add mood slider
-        page = SpotifyScreen();
+        page = SpotifyScreen(mood);
       }
       _pageMap[key] = page;
       return page;
@@ -85,8 +85,8 @@ class WeatherMainWidgetState extends State<WeatherMainWidget> {
         textDirection: TextDirection.ltr,
         child: Container(
             key: Key("weather_main_widget_container"),
-            decoration: BoxDecoration(
-                gradient: WidgetHelper.getGradient(mood: mood)),
+            decoration:
+                BoxDecoration(gradient: WidgetHelper.getGradient(mood: mood)),
             child: Center(
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -106,13 +106,14 @@ class WeatherMainWidgetState extends State<WeatherMainWidget> {
                         itemBuilder: (BuildContext context, int index) {
                           if (index == 0) {
                             return _getPage(Ids.mainWeatherPage, snapshot.data);
+                          } else if (index == 1) {
+                            return _getPage(Ids.moodSliderPage, snapshot.data);
                           } else {
-                            return _getPage(
-                                Ids.moodSliderPage, snapshot.data);
+                            return _getPage(Ids.spotifyPage, snapshot.data);
                           }
                         },
                         loop: false,
-                        itemCount: 2,
+                        itemCount: 3,
                         pagination: SwiperPagination(
                             builder: new DotSwiperPaginationBuilder(
                                 color: ApplicationColors.swiperInactiveDotColor,
@@ -122,7 +123,7 @@ class WeatherMainWidgetState extends State<WeatherMainWidget> {
                 ]))));
   }
 
-  void changeMood(Mood moods){
+  void changeMood(Mood moods) {
     setState(() {
       mood = moods;
     });
