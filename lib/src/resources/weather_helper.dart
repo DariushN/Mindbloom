@@ -1,36 +1,47 @@
 import 'dart:collection';
 import 'package:feather/src/blocs/application_bloc.dart';
+import 'package:feather/src/blocs/mood_weather_bloc.dart';
 import 'package:feather/src/models/internal/weather_enum.dart';
 import 'package:feather/src/models/remote/system.dart';
 import 'package:feather/src/resources/config/assets.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WeatherHelper {
-  static String getWeatherIcon(int code) {
+  static String getWeatherIcon(int code,BuildContext context) {
     String asset = Assets.iconCloud;
     if (code >= 200 && code <= 299) {
       asset = Assets.iconThunder;
       CurrentWeatherHandler.currentWeather=WeatherEnum.Thunder;
+      BlocProvider.of<MoodWeatherBloc>(context).add(WeatherChangeEvent(WeatherEnum.Thunder));
     } else if (code >= 300 && code <= 399) {
       asset = Assets.iconCloudLittleRain;
       CurrentWeatherHandler.currentWeather=WeatherEnum.Rain;
+      BlocProvider.of<MoodWeatherBloc>(context).add(WeatherChangeEvent(WeatherEnum.Rain));
     } else if (code >= 500 && code <= 599) {
       asset = Assets.iconRain;
       CurrentWeatherHandler.currentWeather=WeatherEnum.Rain;
+      BlocProvider.of<MoodWeatherBloc>(context).add(WeatherChangeEvent(WeatherEnum.Rain));
     } else if (code >= 600 && code <= 699) {
       asset = Assets.iconSnow;
       CurrentWeatherHandler.currentWeather=WeatherEnum.Snow;
+      BlocProvider.of<MoodWeatherBloc>(context).add(WeatherChangeEvent(WeatherEnum.Snow));
     } else if (code >= 700 && code <= 799) {
       asset = Assets.iconDust;
       CurrentWeatherHandler.currentWeather=WeatherEnum.Cloud;
+      BlocProvider.of<MoodWeatherBloc>(context).add(WeatherChangeEvent(WeatherEnum.Cloud));
     } else if (code == 800) {
       asset = Assets.iconSun;
       CurrentWeatherHandler.currentWeather=WeatherEnum.Sun;
+      BlocProvider.of<MoodWeatherBloc>(context).add(WeatherChangeEvent(WeatherEnum.Sun));
     } else if (code == 801) {
       asset = Assets.iconCloudSun;
       CurrentWeatherHandler.currentWeather=WeatherEnum.Sun;
+      BlocProvider.of<MoodWeatherBloc>(context).add(WeatherChangeEvent(WeatherEnum.Sun));
     } else if (code >= 802) {
       asset = Assets.iconCloud;
       CurrentWeatherHandler.currentWeather=WeatherEnum.Cloud;
+      BlocProvider.of<MoodWeatherBloc>(context).add(WeatherChangeEvent(WeatherEnum.Cloud));
     }
     return asset;
   }

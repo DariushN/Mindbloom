@@ -1,9 +1,11 @@
 import 'package:feather/src/blocs/application_bloc.dart';
+import 'package:feather/src/blocs/mood_weather_bloc.dart';
 import 'package:feather/src/resources/config/application_config.dart';
 import 'package:feather/src/resources/application_localization_delegate.dart';
 import 'package:feather/src/ui/screen/weather_main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:logging/logging.dart';
 
@@ -20,19 +22,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: WeatherMainScreen(),
-      debugShowCheckedModeBanner: false,
-      theme: _configureThemeData(),
-      localizationsDelegates: [
-        const ApplicationLocalizationDelegate(),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: [
-        const Locale("en"),
-        const Locale("pl"),
-      ],
+    return BlocProvider<MoodWeatherBloc>(
+      create: (context) => MoodWeatherBloc(),
+      child: MaterialApp(
+        home: WeatherMainScreen(),
+        debugShowCheckedModeBanner: false,
+        theme: _configureThemeData(),
+        localizationsDelegates: [
+          const ApplicationLocalizationDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: [
+          const Locale("en"),
+          const Locale("pl"),
+        ],
+      ),
     );
   }
 

@@ -1,7 +1,6 @@
 import 'package:feather/src/models/internal/overflow_menu_element.dart';
 import 'package:feather/src/resources/application_localization.dart';
 import 'package:feather/src/resources/config/application_colors.dart';
-import 'package:feather/src/ui/screen/settings_screen.dart';
 import 'package:feather/src/ui/widget/weather_main_widget.dart';
 import 'package:feather/src/ui/widget/widget_helper.dart';
 import 'package:flutter/material.dart';
@@ -41,28 +40,7 @@ class WeatherMainScreen extends StatelessWidget {
               right: 0.0,
               child: AppBar(
                 actions: <Widget>[
-                  Theme(
-                      data: Theme.of(context).copyWith(
-                        cardColor: ApplicationColors.nightStartColor,
-                      ),
-                      child: PopupMenuButton<PopupMenuElement>(
-                        onSelected: (PopupMenuElement element) {
-                          _onMenuElementClicked(element, context);
-                        },
-                        icon: Icon(
-                          Icons.more_vert,
-                          color: Colors.white,
-                        ),
-                        itemBuilder: (BuildContext context) {
-                          return _getOverflowMenu(context)
-                              .map((PopupMenuElement element) {
-                            return PopupMenuItem<PopupMenuElement>(
-                                value: element,
-                                child: Text(element.title,
-                                    style: TextStyle(color: Colors.white)));
-                          }).toList();
-                        },
-                      ))
+
                 ],
                 backgroundColor: Colors.transparent, //No more green
                 elevation: 0.0, //Shadow gone
@@ -70,14 +48,5 @@ class WeatherMainScreen extends StatelessWidget {
             ),
           ],
         ));
-  }
-
-  void _onMenuElementClicked(PopupMenuElement value, BuildContext context) {
-    if (value.key == Key("menu_overflow_settings")) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => SettingsScreen()),
-      );
-    }
   }
 }

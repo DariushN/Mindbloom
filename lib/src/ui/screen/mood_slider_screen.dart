@@ -1,9 +1,10 @@
+import 'package:feather/src/blocs/mood_weather_bloc.dart';
 import 'package:feather/src/models/internal/mood.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 
-import '../../resources/config/dimensions.dart';
 
 class MoodSliderScreen extends StatefulWidget {
   MoodSliderScreen(this.changeMood);
@@ -24,41 +25,49 @@ class MoodSliderState extends State<MoodSliderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Center(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text("What's your current mood?",
-                    textAlign: TextAlign.center,
-                    textDirection: TextDirection.ltr,
-                    style: Theme.of(context).textTheme.title),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Icon(getIcon(_value),
-                  color: Colors.white,
-                  size: 70),
-                ),
-                Text(getEmotion(_value),
-                    textAlign: TextAlign.center,
-                    textDirection: TextDirection.ltr,
-                    style: Theme.of(context).textTheme.body1),
-            SizedBox(
-              height: 100,
-              child: Slider(
-                min: 0,
-                max: 7,
-                value: _value,
-                onChanged: (value) {
-                  setState(() {
-                    _value = value;
-                    changeMood(getMood(value));
-                  });
-                },
-              ),
-            )
-          ]),
-        ));
+    return BlocBuilder<MoodWeatherBloc, MoodWeatherState>(
+      builder: (context, state) {
+        if (state is MoodState) {
+          _value = moodToInt(state.mood);
+        }
+        return Container(
+            child: Center(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text("What's your current mood?",
+                        textAlign: TextAlign.center,
+                        textDirection: TextDirection.ltr,
+                        style: Theme.of(context).textTheme.title),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Icon(getIcon(_value),
+                      color: Colors.white,
+                      size: 70),
+                    ),
+                    Text(getEmotion(_value),
+                        textAlign: TextAlign.center,
+                        textDirection: TextDirection.ltr,
+                        style: Theme.of(context).textTheme.body1),
+                SizedBox(
+                  height: 100,
+                  child: Slider(
+                    min: 0,
+                    max: 7,
+                    value: _value,
+                    onChanged: (value) {
+                      setState(() {
+                        changeMood(getMood(value));
+                        _value = value;
+                        BlocProvider.of<MoodWeatherBloc>(context).add(MoodChangeEvent(getMood(_value)));
+                      });
+                    },
+                  ),
+                )
+              ]),
+            ));
+      }
+    );
   }
 }
 
@@ -117,6 +126,33 @@ String getEmotion(double i) {
     return 'Ecstatic';
   }
   return 'Neutral';
+}
+
+double moodToInt(Mood mood){
+  switch(mood){
+    case Mood.depressed:
+      return 0.5;
+      break;
+    case Mood.ecstatic:
+      return 6.5;
+      break;
+    case Mood.happy:
+      return 5.5;
+      break;
+    case Mood.content:
+      return 4.5;
+      break;
+    case Mood.neutral:
+      return 3.5;
+      break;
+    case Mood.bitter:
+      return 2.5;
+      break;
+    case Mood.sad:
+      return 1.5;
+      break;
+  }
+  return 3.5;
 }
 
 

@@ -1,3 +1,4 @@
+
 import 'dart:async';
 
 import 'package:feather/src/ui/widget/empty_animation.dart';
@@ -7,7 +8,7 @@ import 'package:rxdart/rxdart.dart';
 abstract class AnimatedState<T extends StatefulWidget> extends State<T>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
-  Observable observable;
+  Stream observable;
   StreamSubscription subscription;
 
   Widget build(BuildContext context);
@@ -20,7 +21,7 @@ abstract class AnimatedState<T extends StatefulWidget> extends State<T>
     controller = _getAnimationController(this, duration);
     Animation animation = _getCurvedAnimation(controller, curve);
     var streamController = StreamController<double>();
-    observable = Observable<double>(streamController.stream);
+    observable = streamController.stream;
     Animation<double> tween = _getTween(start, end, animation);
     var valueListener = () {
       streamController.sink.add(tween.value);

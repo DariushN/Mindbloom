@@ -122,7 +122,7 @@ class WeatherCurrentWidgetState extends AnimatedState<WeatherCurrentWidget> {
     OverallWeatherData overallWeatherData =
         weatherResponse.overallWeatherData[0];
     int code = overallWeatherData.id;
-    return WeatherHelper.getWeatherIcon(code);
+    return WeatherHelper.getWeatherIcon(code,context);
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:feather/src/blocs/mood_weather_bloc.dart';
 import 'package:feather/src/models/internal/mood.dart';
 import 'package:feather/src/models/internal/weather_enum.dart';
 import 'package:feather/src/ui/widget/size_icon_button.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:feather/src/models/internal/genre_const_lib.dart' as genre_lib;
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_sdk/models/crossfade_state.dart' as cross;
 import 'package:spotify_sdk/spotify_sdk.dart';
 import 'package:spotify_sdk/models/player_state.dart';
@@ -27,14 +29,30 @@ class SpotifyScreen extends StatefulWidget {
 }
 
 class _HomeState extends State<SpotifyScreen> {
-  Mood mood;
-  _HomeState(this.mood);
+  Mood moods;
+  _HomeState(this.moods);
+  Mood currentMood = Mood.neutral;
+  WeatherEnum currentWeather = WeatherEnum.Sun;
   bool _loading = false;
   cross.CrossfadeState crossfadeState;
 
   @override
   Widget build(BuildContext context) {
-    return _sampleFlowWidget(context);
+    return BlocBuilder<MoodWeatherBloc, MoodWeatherState>(
+      builder: (context, state) {
+        if (state is WeatherState) {
+          currentWeather = state.weather;
+        }
+        return BlocBuilder<MoodWeatherBloc, MoodWeatherState>(
+            builder: (context, state) {
+              if (state is MoodState) {
+                currentMood = state.mood;
+              }
+            return _sampleFlowWidget(context);
+          }
+        );
+      }
+    );
   }
 
   Widget _sampleFlowWidget(BuildContext context2) {
@@ -51,7 +69,7 @@ class _HomeState extends State<SpotifyScreen> {
             ListView(
               padding: EdgeInsets.all(18),
               children: [
-                Text("Genre: ${genre_lib.mapMoodWeatherToGenre[mood][CurrentWeatherHandler.currentWeather]['genre']} ", textAlign: TextAlign.center ,style: TextStyle(fontSize: 18)),
+                Text("Genre: ${genre_lib.mapMoodWeatherToGenre[currentMood][currentWeather]['genre']} ", textAlign: TextAlign.center ,style: TextStyle(fontSize: 18)),
                 Divider(),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
@@ -274,7 +292,7 @@ class _HomeState extends State<SpotifyScreen> {
 
   Future<void> play() async {
     try {
-      await SpotifySdk.play(spotifyUri:'spotify:track:58kNJana4w5BIjlZE2wq5m'); //genre_lib.mapMoodWeatherToGenre[mood][CurrentWeatherHandler.currentWeather]['playlistLink']);
+      await SpotifySdk.play(spotifyUri:genre_lib.mapMoodWeatherToGenre[currentMood][currentWeather]['playlistLink']);
     } on PlatformException catch (e) {
       setStatus(e.code, message: e.message);
     } on MissingPluginException {
