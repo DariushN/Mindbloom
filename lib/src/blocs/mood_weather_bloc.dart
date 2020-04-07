@@ -8,7 +8,8 @@ class MoodWeatherEvent{
 
 class MoodChangeEvent extends MoodWeatherEvent{
   Mood mood;
-  MoodChangeEvent(this.mood);
+  WeatherEnum weather;
+  MoodChangeEvent(this.mood, this.weather);
 }
 
 class WeatherChangeEvent extends MoodWeatherEvent{
@@ -24,7 +25,7 @@ class MoodWeatherBloc extends Bloc<MoodWeatherEvent, MoodWeatherState> {
   @override
   Stream<MoodWeatherState> mapEventToState(MoodWeatherEvent event) async* {
       if(event is MoodChangeEvent) {
-        yield MoodState(event.mood);
+        yield MoodState(event.mood, event.weather);
       }else if (event is WeatherChangeEvent){
         yield WeatherState(event.weather);
         }
@@ -33,7 +34,8 @@ class MoodWeatherBloc extends Bloc<MoodWeatherEvent, MoodWeatherState> {
 
 class MoodState extends MoodWeatherState{
   Mood mood;
-  MoodState(this.mood);
+  WeatherEnum weather;
+  MoodState(this.mood, this.weather);
 }
 
 class WeatherState extends MoodWeatherState{

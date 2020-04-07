@@ -1,5 +1,6 @@
 import 'package:feather/src/blocs/mood_weather_bloc.dart';
 import 'package:feather/src/models/internal/mood.dart';
+import 'package:feather/src/models/internal/weather_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -22,6 +23,7 @@ class MoodSliderState extends State<MoodSliderScreen> {
 
   final MoodCallback changeMood;
   var _value = 3.5;
+  var currentWeather = WeatherEnum.Cloud;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,10 @@ class MoodSliderState extends State<MoodSliderScreen> {
       builder: (context, state) {
         if (state is MoodState) {
           _value = moodToInt(state.mood);
+          currentWeather = state.weather;
+        }
+        if (state is WeatherState) {
+          currentWeather = state.weather;
         }
         return Container(
             child: Center(
@@ -59,7 +65,7 @@ class MoodSliderState extends State<MoodSliderScreen> {
                       setState(() {
                         changeMood(getMood(value));
                         _value = value;
-                        BlocProvider.of<MoodWeatherBloc>(context).add(MoodChangeEvent(getMood(_value)));
+                        BlocProvider.of<MoodWeatherBloc>(context).add(MoodChangeEvent(getMood(_value),currentWeather));
                       });
                     },
                   ),

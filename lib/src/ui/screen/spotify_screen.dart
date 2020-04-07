@@ -32,7 +32,7 @@ class _HomeState extends State<SpotifyScreen> {
   Mood moods;
   _HomeState(this.moods);
   Mood currentMood = Mood.neutral;
-  WeatherEnum currentWeather = WeatherEnum.Sun;
+  WeatherEnum currentWeather = WeatherEnum.Cloud;
   bool _loading = false;
   cross.CrossfadeState crossfadeState;
 
@@ -40,17 +40,11 @@ class _HomeState extends State<SpotifyScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<MoodWeatherBloc, MoodWeatherState>(
       builder: (context, state) {
-        if (state is WeatherState) {
+        if (state is MoodState) {
+          currentMood = state.mood;
           currentWeather = state.weather;
         }
-        return BlocBuilder<MoodWeatherBloc, MoodWeatherState>(
-            builder: (context, state) {
-              if (state is MoodState) {
-                currentMood = state.mood;
-              }
             return _sampleFlowWidget(context);
-          }
-        );
       }
     );
   }
