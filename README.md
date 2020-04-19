@@ -26,3 +26,4 @@ Chart has been created using the following articles;
 * https://sites.psu.edu/siowfa15/2015/10/21/does-the-type-of-music-you-listen-to-affect-your-mood/
 
 ## Preview of The App 
+<img src="../master/DemoVideo.gif" width="40%">
